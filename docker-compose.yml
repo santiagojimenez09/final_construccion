@@ -1,0 +1,18 @@
+services:
+  operacion-alquimia-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: operacion-alquimia-app
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    ports:
+      - "${HOST_SERVER_PORT:-8080}:8080"
+    environment:
+      PORT: 8080
+    command: ["mvn", "-B", "spring-boot:run"]
+
+volumes:
+  maven_cache:
